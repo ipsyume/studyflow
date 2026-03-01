@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌸 StudyFlow — Kawaii Study App</title>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside class="sidebar">
+  <div class="logo">
+    <a class="logo-mark" href="#">
+      <div class="logo-icon">🌸</div>
+      <span class="logo-text">Study<span>Flow</span></span>
+    </a>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-section">
+      <div class="nav-label">✨ Main</div>
+      <div class="nav-item active" onclick="showPage('dashboard', this)">
+        <span class="icon">⚡</span> Dashboard
+      </div>
+      <div class="nav-item" onclick="showPage('subjects', this)">
+        <span class="icon">📚</span> Subjects
+        <span class="nav-badge" id="subject-badge">0</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">🎀 Study Tools</div>
+      <div class="nav-item" onclick="showPage('pomodoro', this)">
+        <span class="icon">⏱️</span> Pomodoro Timer
+      </div>
+      <div class="nav-item" onclick="showPage('flashcards', this)">
+        <span class="icon">🃏</span> Flashcards
+        <span class="nav-badge" id="fc-badge">0</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">🌟 Analytics</div>
+      <div class="nav-item" onclick="showPage('progress', this)">
+        <span class="icon">📊</span> Progress
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">💾 Data</div>
+      <div class="nav-item" onclick="exportData()">
+        <span class="icon">📤</span> Export JSON
+      </div>
+      <div class="nav-item" onclick="document.getElementById('import-input').click()">
+        <span class="icon">📥</span> Import JSON
+      </div>
+      <div class="nav-item" onclick="clearAllData()" style="color:var(--peach)">
+        <span class="icon">🗑️</span> Clear All Data
+      </div>
+      <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)"/>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <!-- 🧽 SpongeBob mascot -->
+    <div class="spongebob-wrap" title="SpongeBob says: You can do it! 🌟">
+      <svg class="spongebob-svg" viewBox="0 0 60 72" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body -->
+        <rect x="10" y="22" width="40" height="36" rx="6" fill="#FFD700"/>
+        <!-- Sponge holes -->
+        <circle cx="19" cy="30" r="2.5" fill="#E6B800" opacity="0.7"/>
+        <circle cx="30" cy="27" r="2" fill="#E6B800" opacity="0.7"/>
+        <circle cx="40" cy="32" r="2.5" fill="#E6B800" opacity="0.7"/>
+        <circle cx="23" cy="40" r="2" fill="#E6B800" opacity="0.7"/>
+        <circle cx="37" cy="42" r="2" fill="#E6B800" opacity="0.7"/>
+        <circle cx="30" cy="48" r="2.5" fill="#E6B800" opacity="0.7"/>
+        <!-- White shirt -->
+        <rect x="16" y="44" width="28" height="14" rx="4" fill="white"/>
+        <!-- Tie -->
+        <polygon points="30,44 27,50 30,53 33,50" fill="#e879f9"/>
+        <rect x="29" y="53" width="2" height="5" fill="#e879f9"/>
+        <!-- Pants (brown) -->
+        <rect x="13" y="53" width="14" height="8" rx="3" fill="#8B4513"/>
+        <rect x="33" y="53" width="14" height="8" rx="3" fill="#8B4513"/>
+        <!-- Legs -->
+        <rect x="16" y="59" width="7" height="8" rx="2" fill="#8B4513"/>
+        <rect x="37" y="59" width="7" height="8" rx="2" fill="#8B4513"/>
+        <!-- Shoes -->
+        <ellipse cx="19" cy="67" rx="7" ry="4" fill="#1a1a1a"/>
+        <ellipse cx="41" cy="67" rx="7" ry="4" fill="#1a1a1a"/>
+        <!-- Neck -->
+        <rect x="26" y="17" width="8" height="7" fill="#FFD700"/>
+        <!-- Head -->
+        <rect x="8" y="2" width="44" height="20" rx="8" fill="#FFD700"/>
+        <!-- Sponge holes on head -->
+        <circle cx="18" cy="9" r="2" fill="#E6B800" opacity="0.6"/>
+        <circle cx="30" cy="6" r="1.5" fill="#E6B800" opacity="0.6"/>
+        <circle cx="42" cy="10" r="2" fill="#E6B800" opacity="0.6"/>
+        <circle cx="24" cy="15" r="1.5" fill="#E6B800" opacity="0.6"/>
+        <circle cx="38" cy="15" r="1.5" fill="#E6B800" opacity="0.6"/>
+        <!-- Eyes white -->
+        <ellipse cx="22" cy="10" rx="6" ry="7" fill="white"/>
+        <ellipse cx="38" cy="10" rx="6" ry="7" fill="white"/>
+        <!-- Eyes blue irises -->
+        <circle cx="22" cy="11" r="4" fill="#4FC3F7"/>
+        <circle cx="38" cy="11" r="4" fill="#4FC3F7"/>
+        <!-- Pupils -->
+        <circle cx="22" cy="11" r="2" fill="#1a1025"/>
+        <!-- Winking right eye (closed) -->
+        <path d="M34 11 Q38 8 42 11" stroke="#1a1025" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Eye shine -->
+        <circle cx="21" cy="9" r="1" fill="white"/>
+        <!-- Lashes left eye -->
+        <line x1="17" y1="4" x2="15" y2="2" stroke="#1a1025" stroke-width="1" stroke-linecap="round"/>
+        <line x1="22" y1="3" x2="22" y2="1" stroke="#1a1025" stroke-width="1" stroke-linecap="round"/>
+        <line x1="27" y1="4" x2="29" y2="2" stroke="#1a1025" stroke-width="1" stroke-linecap="round"/>
+        <!-- Nose -->
+        <ellipse cx="30" cy="14" rx="2" ry="1.5" fill="#E6B800"/>
+        <!-- Big smile with teeth -->
+        <path d="M20 18 Q30 24 40 18" stroke="#1a1025" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <rect x="24" y="18" width="4" height="3" rx="0.5" fill="white"/>
+        <rect x="28" y="18" width="4" height="3" rx="0.5" fill="white"/>
+        <rect x="32" y="18" width="4" height="3" rx="0.5" fill="white"/>
+        <line x1="28" y1="18" x2="28" y2="21" stroke="#ccc" stroke-width="0.5"/>
+        <line x1="32" y1="18" x2="32" y2="21" stroke="#ccc" stroke-width="0.5"/>
+        <!-- Arms -->
+        <rect x="0" y="26" width="12" height="5" rx="2.5" fill="#FFD700" transform="rotate(-20 6 28)"/>
+        <rect x="48" y="26" width="12" height="5" rx="2.5" fill="#FFD700" transform="rotate(20 54 28)"/>
+        <!-- Hands -->
+        <circle cx="3" cy="33" r="4" fill="#FFD700"/>
+        <circle cx="57" cy="33" r="4" fill="#FFD700"/>
+      </svg>
+      <div class="spongebob-speech">You got this! 🌟</div>
+    </div>
+
+    <div class="kbd-hint">
+      Press <span class="kbd">?</span> for shortcuts
+    </div>
+    <div class="theme-toggle" onclick="toggleTheme()">
+      <span>🌙</span> Dark Mode
+      <div class="toggle-switch"></div>
+    </div>
+  </div>
+</aside>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <div class="page-title" id="topbar-title">Dashboard ✨</div>
+      <div class="page-subtitle" id="topbar-sub">Welcome back •⩊• — ready to study? 🌸</div>
+    </div>
+    <div class="topbar-right">
+      <div class="live-clock" id="live-clock">00:00:00</div>
+      <button class="btn btn-primary" id="topbar-action-btn" onclick="handleTopbarAction()">
+        <span id="topbar-action-label">＋ Subject</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ DASHBOARD ══ -->
+  <div class="page active content" id="page-dashboard">
+    <div class="greeting">
+      <h1>Good <em id="greeting-time">morning ☀️</em>,<br>Ready to learn? 🚀💖</h1>
+      <p id="greeting-date">Loading date…</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Subjects</div>
+        <div class="stat-value" id="dash-subjects">0</div>
+        <div class="stat-sub">Active modules</div>
+        <div class="stat-icon">📚</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Study Sessions</div>
+        <div class="stat-value" id="dash-sessions">0</div>
+        <div class="stat-sub">Pomodoros done</div>
+        <div class="stat-icon">⏱️</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Flashcards</div>
+        <div class="stat-value" id="dash-cards">0</div>
+        <div class="stat-sub">Total created</div>
+        <div class="stat-icon">🃏</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Accuracy</div>
+        <div class="stat-value" id="dash-accuracy">—</div>
+        <div class="stat-sub">Quiz performance</div>
+        <div class="stat-icon">🎯</div>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">📚 Active Subjects</div>
+            <div class="card-sub">Your current modules</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="showPage('subjects', document.querySelectorAll('.nav-item')[1])">View all →</button>
+        </div>
+        <div id="dash-subject-list" class="subject-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">📅 This Week</div>
+            <div class="card-sub">Study hours per day</div>
+          </div>
+        </div>
+        <div class="week-chart" id="week-chart"></div>
+      </div>
+
+      <div class="card dash-grid-wide">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🏆 Achievements</div>
+            <div class="card-sub">Your learning milestones</div>
+          </div>
+          <span style="font-size:0.78rem;color:var(--text2);font-weight:700">Unlock them all! 🌸</span>
+        </div>
+        <div class="achievement-grid" id="achievements-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SUBJECTS ══ -->
+  <div class="page content" id="page-subjects">
+    <div class="subject-list" id="subjects-list" style="gap:14px"></div>
+  </div>
+
+  <!-- ══ POMODORO ══ -->
+  <div class="page content" id="page-pomodoro">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+
+      <div class="card">
+        <div class="pomodoro-wrap" id="pomodoro-wrap">
+
+          <div class="pomodoro-modes">
+            <button class="mode-btn active" onclick="setMode('focus', this)">🎯 Focus</button>
+            <button class="mode-btn" onclick="setMode('short', this)">☕ Short Break</button>
+            <button class="mode-btn" onclick="setMode('long', this)">🛋️ Long Break</button>
+          </div>
+
+          <div class="timer-ring-wrap">
+            <svg class="timer-ring-svg" viewBox="0 0 200 200">
+              <!-- Decorative dot ring -->
+              <circle class="timer-ring-dots" cx="100" cy="100" r="91"/>
+              <!-- Background ring -->
+              <circle class="timer-ring-bg" cx="100" cy="100" r="91"/>
+              <!-- Progress ring -->
+              <circle class="timer-ring-fg" id="ring-fg" cx="100" cy="100" r="91"
+                stroke-dasharray="572" stroke-dashoffset="0"/>
+            </svg>
+            <div class="timer-center">
+              <div class="timer-display" id="timer-display">25:00</div>
+              <div class="timer-mode-label" id="timer-mode-label">Focus Time 🎯</div>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button class="btn-timer btn-timer-secondary" onclick="resetTimer()" title="Reset (R)">↺</button>
+            <button class="btn-timer btn-timer-main" id="timer-toggle-btn" onclick="toggleTimer()" title="Start/Pause (Space)">▶</button>
+            <button class="btn-timer btn-timer-secondary" onclick="skipTimer()" title="Skip">⏭</button>
+          </div>
+
+          <div class="pomodoro-stats">
+            <div class="p-stat">
+              <div class="p-stat-val" id="pomo-count">0</div>
+              <div class="p-stat-label">Sessions</div>
+            </div>
+            <div class="p-stat">
+              <div class="p-stat-val" style="color:var(--mint)" id="pomo-streak">0</div>
+              <div class="p-stat-label">Streak 🔥</div>
+            </div>
+            <div class="p-stat">
+              <div class="p-stat-val" style="color:var(--yellow)" id="pomo-mins">0</div>
+              <div class="p-stat-label">Minutes ⏰</div>
+            </div>
+          </div>
+
+          <!-- Sound toggle -->
+          <div style="display:flex;align-items:center;gap:10px;font-size:0.82rem;color:var(--text2);font-weight:700">
+            <span>🔔 Sound</span>
+            <div class="toggle-switch" onclick="toggleSound()" id="sound-toggle" style="cursor:pointer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session Log -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 Session Log</div>
+          <button class="btn btn-ghost btn-sm" onclick="clearSessionLog()">Clear</button>
+        </div>
+        <div class="pomodoro-session-log" id="session-log">
+          <div class="empty-state" style="padding:24px">
+            <div class="icon" style="font-size:2.2rem">⏳</div>
+            <h3 style="font-size:0.95rem">No sessions yet</h3>
+            <p>Start your first Pomodoro! 🌸</p>
+          </div>
+        </div>
+
+        <!-- Timer settings -->
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+          <div class="card-title" style="margin-bottom:14px;font-size:0.9rem">⚙️ Timer Settings</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Focus</label>
+              <input class="form-input" id="setting-focus" type="number" min="1" max="90" style="padding:8px 10px;font-size:0.82rem"
+                onchange="updateTimerSetting('focus')" />
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Short</label>
+              <input class="form-input" id="setting-short" type="number" min="1" max="30" style="padding:8px 10px;font-size:0.82rem"
+                onchange="updateTimerSetting('short')" />
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Long</label>
+              <input class="form-input" id="setting-long" type="number" min="1" max="60" style="padding:8px 10px;font-size:0.82rem"
+                onchange="updateTimerSetting('long')" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ FLASHCARDS ══ -->
+  <div class="page content" id="page-flashcards">
+    <div style="display:grid;grid-template-columns:1fr 1.7fr;gap:24px;align-items:start">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🃏 Your Decks</div>
+          <button class="btn btn-ghost btn-sm btn-icon" onclick="openModal('modal-deck')" title="New deck">＋</button>
+        </div>
+        <div class="fc-deck-list" id="deck-list"></div>
+      </div>
+
+      <div class="card">
+        <div id="fc-study-area">
+          <div class="empty-state" style="padding:48px 24px">
+            <div class="icon">🎴</div>
+            <h3>Select a deck to study</h3>
+            <p>Choose a flashcard deck from the left to begin 🌸</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ PROGRESS ══ -->
+  <div class="page content" id="page-progress">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📈 Weekly Study Hours</div>
+        </div>
+        <div class="week-chart" id="progress-week-chart"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📚 Subject Completion</div>
+        </div>
+        <div class="subject-progress-list" id="progress-subject-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🎯 Flashcard Accuracy</div>
+        </div>
+        <div style="text-align:center;padding:16px 24px">
+          <div style="font-family:'Fredoka One',cursive;font-size:4rem;letter-spacing:0.01em;line-height:1" id="acc-big">—</div>
+          <div style="color:var(--text2);font-size:0.85rem;margin-top:8px;font-weight:700">Overall quiz accuracy</div>
+          <div style="display:flex;gap:28px;justify-content:center;margin-top:20px">
+            <div>
+              <div style="font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--mint)" id="acc-right">0</div>
+              <div style="font-size:0.72rem;color:var(--text2);font-weight:700">Correct</div>
+            </div>
+            <div>
+              <div style="font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--peach)" id="acc-wrong">0</div>
+              <div style="font-size:0.72rem;color:var(--text2);font-weight:700">Wrong</div>
+            </div>
+            <div>
+              <div style="font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--yellow)" id="acc-total">0</div>
+              <div style="font-size:0.72rem;color:var(--text2);font-weight:700">Total</div>
+            </div>
+          </div>
+          <!-- Chart.js doughnut -->
+          <div class="chart-container" style="max-width:200px;margin:20px auto 0">
+            <canvas id="accuracy-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🏆 Achievements</div>
+        </div>
+        <div class="achievement-grid" id="progress-achievements" style="grid-template-columns:repeat(3,1fr)"></div>
+      </div>
+
+    </div>
+  </div>
+
+</main><!-- end .main -->
+
+<!-- ══════════════ MODALS ══════════════ -->
+
+<!-- Add Subject -->
+<div class="modal-overlay" id="modal-subject">
+  <div class="modal">
+    <div class="modal-title">📚 Add Subject 🌸</div>
+    <div class="form-group">
+      <label class="form-label">Subject Name</label>
+      <input class="form-input" id="subj-name" placeholder="e.g. Calculus, UI Design…"/>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Deadline</label>
+        <input class="form-input" id="subj-deadline" type="date"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Priority</label>
+        <select class="form-select" id="subj-priority">
+          <option value="high">🔴 High</option>
+          <option value="medium" selected>🟡 Medium</option>
+          <option value="low">🟢 Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Color 🎨</label>
+      <div class="color-picker-row" id="color-picker">
+        <div class="color-option selected" style="background:#ff85c2" data-color="#ff85c2"></div>
+        <div class="color-option" style="background:#c084fc" data-color="#c084fc"></div>
+        <div class="color-option" style="background:#e879f9" data-color="#e879f9"></div>
+        <div class="color-option" style="background:#6ee7b7" data-color="#6ee7b7"></div>
+        <div class="color-option" style="background:#fde68a" data-color="#fde68a"></div>
+        <div class="color-option" style="background:#7dd3fc" data-color="#7dd3fc"></div>
+        <div class="color-option" style="background:#fca5a5" data-color="#fca5a5"></div>
+        <div class="color-option" style="background:#fb923c" data-color="#fb923c"></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notes (optional)</label>
+      <textarea class="form-textarea" id="subj-notes" placeholder="Any notes about this subject…"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Initial Progress % (0–100)</label>
+      <input class="form-input" id="subj-progress" type="number" min="0" max="100" value="0"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-subject')">Cancel</button>
+      <button class="btn btn-primary" onclick="addSubject()">Add Subject 💖</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Deck -->
+<div class="modal-overlay" id="modal-deck">
+  <div class="modal">
+    <div class="modal-title">📦 Create Flashcard Deck</div>
+    <div class="form-group">
+      <label class="form-label">Deck Name</label>
+      <input class="form-input" id="deck-name" placeholder="e.g. JavaScript Concepts…"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Emoji Icon</label>
+      <input class="form-input" id="deck-emoji" placeholder="e.g. 🧠" maxlength="4" value="📖"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-deck')">Cancel</button>
+      <button class="btn btn-primary" onclick="addDeck()">Create Deck ✨</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Flashcard -->
+<div class="modal-overlay" id="modal-card">
+  <div class="modal">
+    <div class="modal-title">🃏 Add Flashcard 💖</div>
+    <div class="form-group">
+      <label class="form-label">Question / Front</label>
+      <textarea class="form-textarea" id="card-question" placeholder="What is the question?"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Answer / Back</label>
+      <textarea class="form-textarea" id="card-answer" placeholder="What is the answer?"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-card')">Cancel</button>
+      <button class="btn btn-primary" onclick="addCard()">Add Card 🌸</button>
+    </div>
+  </div>
+</div>
+
+<!-- Keyboard Shortcuts Panel -->
+<div class="shortcuts-panel" id="shortcuts-panel">
+  <h4>⌨️ Keyboard Shortcuts</h4>
+  <div class="shortcut-row"><span>Dashboard</span><span class="kbd">1</span></div>
+  <div class="shortcut-row"><span>Subjects</span><span class="kbd">2</span></div>
+  <div class="shortcut-row"><span>Pomodoro</span><span class="kbd">3</span></div>
+  <div class="shortcut-row"><span>Flashcards</span><span class="kbd">4</span></div>
+  <div class="shortcut-row"><span>Progress</span><span class="kbd">5</span></div>
+  <div class="shortcut-row"><span>New item</span><span class="kbd">N</span></div>
+  <div class="shortcut-row"><span>Start/Pause timer</span><span class="kbd">Space</span></div>
+  <div class="shortcut-row"><span>Reset timer</span><span class="kbd">R</span></div>
+  <div class="shortcut-row"><span>Flip card</span><span class="kbd">F</span></div>
+  <div class="shortcut-row"><span>Card correct / wrong</span><span class="kbd">→ / ←</span></div>
+  <div class="shortcut-row"><span>Close / this panel</span><span class="kbd">Esc / ?</span></div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script src="app.js"></script>
+<script>
+  // ── Extra wiring that needs DOM to exist ──
+
+  // Sound toggle visual sync
+  function toggleSound() {
+    state.settings.soundEnabled = !state.settings.soundEnabled;
+    saveState();
+    const tog = document.getElementById('sound-toggle');
+    if (tog) tog.style.background = state.settings.soundEnabled
+      ? 'linear-gradient(135deg,var(--pink),var(--accent))' : '';
+    toast(state.settings.soundEnabled ? '🔔 Sound on!' : '🔕 Sound off', 'info');
+  }
+
+  function updateTimerSetting(type) {
+    const map = { focus: 'focusMins', short: 'shortMins', long: 'longMins' };
+    const inputId = { focus: 'setting-focus', short: 'setting-short', long: 'setting-long' };
+    const val = parseInt(document.getElementById(inputId[type]).value) || state.settings[map[type]];
+    state.settings[map[type]] = Math.max(1, val);
+    saveState();
+    if (type === timerMode && !timerRunning) resetTimer();
+    toast(`⏱️ ${type} timer set to ${state.settings[map[type]]} min`, 'info');
+  }
+
+  function clearSessionLog() {
+    const el = document.getElementById('session-log');
+    el.innerHTML = `<div class="empty-state" style="padding:24px">
+      <div class="icon" style="font-size:2.2rem">⏳</div>
+      <h3 style="font-size:0.95rem">No sessions yet</h3>
+      <p>Start your first Pomodoro! 🌸</p>
+    </div>`;
+    toast('Log cleared 🗑️', 'info');
+  }
+
+  // Populate timer settings inputs on load
+  function initSettingsInputs() {
+    const fi = document.getElementById('setting-focus');
+    const si = document.getElementById('setting-short');
+    const li = document.getElementById('setting-long');
+    if (fi) fi.value = state.settings.focusMins;
+    if (si) si.value = state.settings.shortMins;
+    if (li) li.value = state.settings.longMins;
+
+    const tog = document.getElementById('sound-toggle');
+    if (tog && state.settings.soundEnabled) {
+      tog.style.background = 'linear-gradient(135deg,var(--pink),var(--accent))';
+    }
+  }
+  initSettingsInputs();
+
+  // Sync pomo stats from state on load
+  document.getElementById('pomo-count').textContent = state.stats.sessions;
+  document.getElementById('pomo-mins').textContent  = state.stats.studyMins;
+  if (document.getElementById('pomo-streak'))
+    document.getElementById('pomo-streak').textContent = state.stats.streak;
+</script>
+</body>
+</html>
