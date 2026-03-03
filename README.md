@@ -39,7 +39,7 @@ Fully client-side. No backend.
 <img width="1917" height="1026" alt="image" src="https://github.com/user-attachments/assets/87c9f984-8aa7-42ba-9015-e166676f17e8" />
 <img width="732" height="893" alt="image" src="https://github.com/user-attachments/assets/e720357c-0792-4616-8d0a-38cf9b740f48" />
 <img width="1557" height="927" alt="image" src="https://github.com/user-attachments/assets/522fe0e4-2f5d-44ce-8c85-961226cff523" />
-<img width="1919" height="972" alt="image" src="https://github.com/user-attachments/assets/c88cb3a9-df10-4665-b9ce-d235096166e2" />
+<img width="1919" height="966" alt="image" src="https://github.com/user-attachments/assets/024a6f06-4030-49be-b5ab-c5a58588f2df" />
 <img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/f6d63dda-0fe2-44f0-b234-c61c4c8aaa0a" />
 <img width="344" height="542" alt="image" src="https://github.com/user-attachments/assets/e8670945-41bc-469c-803e-d6a3be67186c" />
 
@@ -52,6 +52,7 @@ Fully client-side. No backend.
 ```bash
 
 git clone https://github.com/ipsyume/studyflow.git
+
 
 
 
