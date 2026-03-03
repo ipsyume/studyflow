@@ -914,6 +914,24 @@ function toggleTheme() {
   html.setAttribute('data-theme', next);
   localStorage.setItem('studyflow_theme', next);
   playSound('pop');
+
+  updateThemeUI();
+}
+
+function updateThemeUI() {
+  const theme = document.documentElement.getAttribute('data-theme');
+  const label = document.getElementById('theme-label');
+  const icon  = document.getElementById('theme-icon');
+
+  if (!label || !icon) return;
+
+  if (theme === 'dark') {
+    label.textContent = 'Light Mode';
+    icon.textContent = '☀️';
+  } else {
+    label.textContent = 'Dark Mode';
+    icon.textContent = '🌙';
+  }
 }
 
 function loadTheme() {
@@ -940,6 +958,7 @@ function setGreeting() {
 // ═══ INIT ════════════════════════════════════════
 loadTheme();
 loadState();
+updateThemeUI();
 setGreeting();
 updateClock();
 setInterval(updateClock, 1000);
