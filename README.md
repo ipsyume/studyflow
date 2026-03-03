@@ -33,9 +33,21 @@ StudyFlow helps students manage subjects, track progress, use a Pomodoro timer, 
 
 Fully client-side. No backend.
 
+## 📸 Screenshots
+
+<img width="1917" height="1026" alt="image" src="https://github.com/user-attachments/assets/87c9f984-8aa7-42ba-9015-e166676f17e8" />
+<img width="1917" height="962" alt="image" src="https://github.com/user-attachments/assets/71beb4f9-d6be-4f13-bab3-041a407ce0b5" />
+<img width="960" height="964" alt="image" src="https://github.com/user-attachments/assets/19640b58-6dfd-48fe-b72c-a7bea1083ea7" />
+<img width="1919" height="972" alt="image" src="https://github.com/user-attachments/assets/c88cb3a9-df10-4665-b9ce-d235096166e2" />
+<img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/f6d63dda-0fe2-44f0-b234-c61c4c8aaa0a" />
+<img width="344" height="542" alt="image" src="https://github.com/user-attachments/assets/e8670945-41bc-469c-803e-d6a3be67186c" />
+
+
+
 ---
 
 ## 🚀 How to Run
 
 ```bash
+
 git clone https://github.com/ipsyume/studyflow.git
