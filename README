@@ -1,124 +1,38 @@
-🌸 StudyFlow
+# 🌸 StudyFlow
 
-A cute but powerful all-in-one study productivity web app — built with pure HTML, CSS, and Vanilla JavaScript.
+A cute yet powerful all-in-one study productivity web app built using **HTML, CSS, and Vanilla JavaScript**.
 
-StudyFlow helps students manage subjects, track progress, use a Pomodoro timer, and revise with interactive flashcards — all in one aesthetic, distraction-free dashboard.
+StudyFlow helps students manage subjects, track progress, use a Pomodoro timer, and revise with interactive flashcards — all in one aesthetic dashboard.
 
-✨ Features
-📊 Dashboard
+---
 
-Live study stats (sessions, study minutes, accuracy)
+## ✨ Features
 
-Weekly study visualization
+- 📊 **Dashboard** – Study stats, weekly tracking, achievements  
+- 📚 **Subject Management** – Priority, deadlines, notes, progress bars  
+- ⏱️ **Pomodoro Timer** – Focus/Break modes, animated ring, sound effects  
+- 🃏 **Flashcards** – Custom decks, flip animation, shuffle, accuracy tracking  
+- 📈 **Progress Page** – Weekly chart + accuracy doughnut (Chart.js)  
+- 💾 **Data Persistence** – Auto-save using LocalStorage  
+- 🎨 **UI Enhancements** – Dark/Light theme, toast notifications, confetti  
+- ⌨️ **Keyboard Shortcuts** – Faster navigation  
 
-Achievement badges system
+---
 
-Real-time clock & greeting
+## 🛠 Tech Stack
 
-📚 Subject Management
+- HTML5  
+- CSS3  
+- Vanilla JavaScript (ES6)  
+- Chart.js  
+- Web Audio API  
+- LocalStorage API  
 
-Add subjects with:
+Fully client-side. No backend.
 
-Priority levels (High / Medium / Low)
+---
 
-Deadlines
+## 🚀 How to Run
 
-Notes
-
-Progress tracking (0–100%)
-
-Visual progress bars
-
-Quick edit & delete options
-
-⏱️ Pomodoro Timer
-
-Focus, Short Break & Long Break modes
-
-Animated circular progress ring
-
-Sound effects (toggleable)
-
-Session logging
-
-Weekly hour tracking
-
-Auto-switch between focus and break
-
-Keyboard shortcuts support
-
-🃏 Flashcards System
-
-Create custom decks
-
-Add unlimited flashcards
-
-Flip animation
-
-Shuffle deck
-
-Accuracy tracking
-
-Confetti on completion 🎉
-
-📈 Progress Tracking
-
-Weekly bar chart
-
-Doughnut chart for accuracy (Chart.js)
-
-Subject-wise progress
-
-Achievement unlocking system
-
-💾 Data Persistence
-
-LocalStorage-based state management
-
-Auto-save
-
-Export data as JSON backup
-
-Import previous data
-
-Clear all data option
-
-🎨 UI & UX
-
-Dark / Light theme toggle
-
-Kawaii-inspired UI
-
-Toast notifications
-
-Confetti animations
-
-Sound effects using Web Audio API
-
-Keyboard shortcuts for power users
-
-🛠 Tech Stack
-
-HTML5
-
-CSS3
-
-Vanilla JavaScript (ES6)
-
-Chart.js (for progress visualization)
-
-Web Audio API
-
-LocalStorage API
-
-🚀 How to Run
-
-Clone the repository:
-
+```bash
 git clone https://github.com/ipsyume/studyflow.git
-
-Open index.html in your browser.
-
-That’s it. No installation required.
-
-          
