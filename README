@@ -1,12 +1,14 @@
-# 🌸 StudyFlow
-
+#🌸StudyFlow🌸
+![Made with HTML](https://img.shields.io/badge/Made%20with-HTML-orange)
+![Made with CSS](https://img.shields.io/badge/Made%20with-CSS-blue)
+![Made with JS](https://img.shields.io/badge/Made%20with-JavaScript-yellow)
 A cute yet powerful all-in-one study productivity web app built using **HTML, CSS, and Vanilla JavaScript**.
 
 StudyFlow helps students manage subjects, track progress, use a Pomodoro timer, and revise with interactive flashcards — all in one aesthetic dashboard.
 
 ---
 
-## ✨ Features
+##✨ Features
 
 - 📊 **Dashboard** – Study stats, weekly tracking, achievements  
 - 📚 **Subject Management** – Priority, deadlines, notes, progress bars  
@@ -19,7 +21,7 @@ StudyFlow helps students manage subjects, track progress, use a Pomodoro timer, 
 
 ---
 
-## 🛠 Tech Stack
+##🛠 Tech Stack
 
 - HTML5  
 - CSS3  
